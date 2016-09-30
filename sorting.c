@@ -76,9 +76,9 @@ void externalSorting(FILE *file, int memsize, int num_books){
 		fclose(fileaux2);
 		fclose(fileaux3);
 	}
-	sprintf(straux, "mv file%ld.bin inorder", size-1);
+	sprintf(straux, "mv file%ld.bin livros_ordenados", size-1);
 	system(straux);
-	system("rm -f file*.bin");
+	system("rm -f *.bin");
 
 }
 

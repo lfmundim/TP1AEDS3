@@ -13,4 +13,6 @@ typedef struct shelfT{
 	char empty; //1 se vazia, 0 se possui livros
 }shelfT;
 
+void createShelf(FILE *shelf, FILE *books, int shelfsize, FILE *index);
+
 #endif //AEDS3_TP1_SHELVES_H
