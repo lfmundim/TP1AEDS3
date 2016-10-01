@@ -8,7 +8,7 @@
 
 void findBook(char* book_name, int shelf_num, int shelfsize);
 
-void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize){
+void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize){ //procura a estante onde o livro se encontra
 	char aux[51];
 	int i, cmp, flag_smaller=0, flag_bigger=0;
 
@@ -46,7 +46,7 @@ void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize)
 	}
 }
 
-void findBook(char* book_name, int shelf_num, int shelfSize){
+void findBook(char* book_name, int shelf_num, int shelfSize){ //depois de encontrar a estante, procura a posição do livro
 	FILE* shelf;
 	int i, cmp;
 	char available, aux[51], shelf_name[15];

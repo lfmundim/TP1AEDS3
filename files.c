@@ -6,7 +6,7 @@
 #include "files.h"
 #include "books.h"
 
-void fillTempFile(FILE *temp, int num_books){
+void fillTempFile(FILE *temp, int num_books){ //preenche um arquivo temporário com os livros na ordem de entrada
 	int i;
 	size_t size;
 	bookT book;

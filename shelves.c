@@ -6,7 +6,7 @@
 #include <memory.h>
 #include "shelves.h"
 
-void createShelf(FILE *shelf, FILE *books, int shelfsize, FILE *index){
+void createShelf(FILE *shelf, FILE *books, int shelfsize, FILE *index){ //cria uma estante de tamanho determinado e preenche com livros
 	int i;
 	bookT book;
 	fscanf(books, "%s %c", book.title, &book.available);
