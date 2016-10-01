@@ -11,6 +11,6 @@ int compare(const void * book1, const void * book2);
 
 void externalSorting(FILE *file, int memsize, int num_books);
 
-void sorting(FILE *file1, FILE *file2, FILE *output, int memsize);
+void sorting(FILE *file1, FILE *file2, FILE *output);
 
 #endif //AEDS3_TP1_SORTING_H

@@ -1,15 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
 #include "books.h"
 #include "files.h"
 #include "sorting.h"
 #include "shelves.h"
 
 int main(){
-	int num_books, mem_size, num_shelves, shelf_size, requests, i, j, k, num, count, unused_shelves;
-	char bookName[51], availability, shelfname[15];
-	bookT *books;
+	int num_books, mem_size, num_shelves, shelf_size, requests, i, unused_shelves;
+	char bookName[51], shelfname[15];
 	FILE *index, *shelf, *temp;
 
 
@@ -41,7 +38,7 @@ int main(){
 	}
 	fclose(index);
 	index = fopen("indice", "rb");
-	//Procura livros TODO com probema: não encontra livros;
+	//Procura livros
 	for(i=0; i<requests; i++){
 		scanf(" %s", bookName);
 		findBookShelf(bookName, index, num_shelves, shelf_size);

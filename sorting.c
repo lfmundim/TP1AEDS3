@@ -15,10 +15,11 @@ int compare(const void * book1, const void * book2) {
 	return strcmp(tempA->title, tempB->title);
 }
 
-void sorting(FILE *file1, FILE *file2, FILE *output, int memsize);
+void sorting(FILE *file1, FILE *file2, FILE *output);
 
 void externalSorting(FILE *file, int memsize, int num_books){
-	long int i, j, k, count, last, size;
+	long int i, j, k, count, last;
+	size_t size;
 	char straux[MAX_FILES];
 	FILE *fileaux, *fileaux2, *fileaux3;
 	bookT buffer, *book_array;
@@ -40,19 +41,19 @@ void externalSorting(FILE *file, int memsize, int num_books){
 	//ordena internamente os i arquivos
 	for(j=0; j<i; j++){
 		if(j==i-1)
-			size = last;
+			size = (size_t)last;
 		else
-			size = memsize;
+			size = (size_t)memsize;
 		book_array = (bookT*)malloc(size*sizeof(bookT));
 		sprintf(straux, "file%ld.bin", j);
 		fileaux = fopen(straux, "r");
-		for(k=0; k<size; k++) {
+		for(k=0; k<(int)size; k++) {
 			fscanf(fileaux, "%s %c", book_array[k].title, &book_array[k].available);
 		}
 		fclose(fileaux);
 		fileaux = fopen(straux, "wb");
 		qsort(book_array, size, sizeof(bookT), compare);
-		for(k=0; k<size; k++){
+		for(k=0; k<(int)size; k++){
 			fprintf(fileaux, "%s %c\n", book_array[k].title, book_array[k].available);
 		}
 		fclose(fileaux);
@@ -60,8 +61,8 @@ void externalSorting(FILE *file, int memsize, int num_books){
 	}
 
 	//intercala os arquivos
-	size = (num_books/memsize+1); //conta numero de arquivos
-	for(i=0; i<size; i++){ //arquivos
+	size = (size_t)(num_books/memsize+1); //conta numero de arquivos
+	for(i=0; i<(int)size; i++){ //arquivos
 		sprintf(straux, "file%ld.bin", size++);
 		fileaux3 = fopen(straux, "wb");
 
@@ -71,7 +72,7 @@ void externalSorting(FILE *file, int memsize, int num_books){
 		fileaux2 = fopen(straux, "rb");
 
 
-		sorting(fileaux, fileaux2, fileaux3, memsize);
+		sorting(fileaux, fileaux2, fileaux3);
 		fclose(fileaux);
 		fclose(fileaux2);
 		fclose(fileaux3);
@@ -82,10 +83,12 @@ void externalSorting(FILE *file, int memsize, int num_books){
 
 }
 
-void sorting(FILE *file1, FILE *file2, FILE *output, int memsize){
+void sorting(FILE *file1, FILE *file2, FILE *output){
 	//compara as primeiras duas linhas dos arquivos, passa a menor pra um arquivo output
 	bookT book1, book2;
-	int comp, length1=0, length2=0, size=0, count1=1, count2=1, flag1=0, flag2=0;
+	int comp, length1=0, length2=0, count1=1, count2=1, flag1=0, flag2=0;
+	size_t size=0;
+
 	fscanf(file1, "%s %c", book1.title, &book1.available);
 	fscanf(file2, "%s %c", book2.title, &book2.available);
 	while(1) {
@@ -102,7 +105,7 @@ void sorting(FILE *file1, FILE *file2, FILE *output, int memsize){
 			break;
 		}
 		if (comp < 0) {
-			size = strlen(book1.title);
+			size = (size_t)strlen(book1.title);
 			fwrite(book1.title, size*sizeof(char), 1, output);
 			fprintf(output, " ");
 			fwrite(&book1.available, sizeof(char), 1, output);

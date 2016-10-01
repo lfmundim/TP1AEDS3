@@ -9,6 +9,4 @@
 
 void fillTempFile(FILE *temp, int num_books);
 
-void readTempFile(FILE *temp, int num_books);
-
 #endif //AEDS3_TP1_FILES_H
