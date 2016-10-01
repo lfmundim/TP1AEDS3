@@ -13,18 +13,19 @@ void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize)
 	int i, cmp, flag_smaller=0, flag_bigger=0;
 
 	for(i=0; i<num_shelves; i++){
+		flag_bigger=0;
+		flag_smaller=0;
 		//vê se o livro ficaria na estante i atual
-		//TODO fscanf bugado??
-		fscanf(index, "%s ", aux);
+		fscanf(index, " %s", aux);
 		cmp = strcmp(aux, book_name);
 		//livro vem antes do lido
-		if(cmp>=0)
+		if(cmp>0)
 			flag_smaller=1;
 
 		fscanf(index, " %s", aux);
 		cmp = strcmp(aux, book_name);
 		//livro vem depois do lido
-		if(cmp<=0)
+		if(cmp<0)
 			flag_bigger=1;
 
 		//nome do livro viria antes do primeiro da primeira estante
@@ -33,8 +34,10 @@ void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize)
 			break;
 		}
 		//nome do livro esta na estante atual
-		if(flag_bigger==0 && flag_smaller==0)
+		if(flag_bigger==0 && flag_smaller==0) {
 			findBook(book_name, i, shelfsize);
+			break;
+		}
 		//nome do livro viria depois do último da última estante
 		if(i==num_shelves-1 && flag_bigger==1){
 			printf("livro nao encontrado\n");
@@ -45,7 +48,7 @@ void findBookShelf(char* book_name, FILE *index, int num_shelves, int shelfsize)
 
 void findBook(char* book_name, int shelf_num, int shelfSize){
 	FILE* shelf;
-	int i, cmp, pos;
+	int i, cmp;
 	char available, aux[51], shelf_name[15];
 
 	sprintf(shelf_name, "estante%d", shelf_num);
@@ -65,11 +68,10 @@ void findBook(char* book_name, int shelf_num, int shelfSize){
 				break;
 			}
 			if(available==49){
-				pos = ftell(shelf)/sizeof(bookT);
-				printf("disponivel na posicao %d na estante %d\n", pos, shelf_num);
+				printf("disponivel na posicao %d na estante %d\n", i, shelf_num);
 				break;
 			}
 		}
 	}
-
+	fclose(shelf);
 }
