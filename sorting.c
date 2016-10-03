@@ -97,7 +97,8 @@ void sorting(FILE *file1, FILE *file2, FILE *output){
 	fscanf(file1, "%s %c", book1.title, &book1.available);
 	fscanf(file2, "%s %c", book2.title, &book2.available);
 	while(1) {
-		comp = strcmp(book1.title, book2.title);
+		if(feof(file1)==0 && feof(file2)==0)
+			comp = strcmp(book1.title, book2.title);
 		if(feof(file1)==1){//se o primeiro arquivo acabar, "seta" um flag para ignora-lo no resto das intercalações
 			comp = 1; //seta a comparação como >0 para funcionamento da função
 			flag1 = 1;

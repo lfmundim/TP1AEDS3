@@ -3,7 +3,8 @@ CFLAGS = -g -O0 -Wall -Wextra -Werror -std=c99 -pedantic
 OBJ = main.o books.o files.o shelves.o sorting.o
 DEPS = books.h files.h shelves.h sorting.h
 VFLAGS = --leak-check=full --leak-resolution=high --show-reachable=yes --track-origins=yes
-EXEC = ./exec
+EXEC = ./exec < input
+TIMED_RUN = time ./exec < input
 
 all: exec
 
@@ -20,3 +21,5 @@ valgrind:
 	valgrind $(VFLAGS) $(EXEC)
 run:
 	$(EXEC)
+timed:
+	$(TIMED_RUN)

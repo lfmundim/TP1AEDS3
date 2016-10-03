@@ -31,8 +31,6 @@ int main(){
 		shelf = fopen(shelfname, "wb");
 		if(i<num_shelves-unused_shelves)
 			createShelf(shelf, temp, shelf_size, index);
-		else
-			shelf = fopen(shelfname, "wb");
 		fclose(shelf);
 	}
 	for(i=unused_shelves; i>0; i--){ //preenche o índice das estantes vazias com #
